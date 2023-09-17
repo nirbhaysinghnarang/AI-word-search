@@ -1,0 +1,30 @@
+import { Word } from "../Types/Word"
+export const words:Word[] = [
+    {"word": "apple", "hint": "A fruit that's often red or green."},
+    {"word": "bicycle", "hint": "A two-wheeled vehicle."},
+    {"word": "chocolate", "hint": "A sweet treat made from cocoa."},
+    {"word": "dog", "hint": "A common household pet."},
+    {"word": "elephant", "hint": "A large, gray animal with a trunk."},
+    {"word": "flower", "hint": "A colorful plant often given as a gift."},
+    {"word": "guitar", "hint": "A musical instrument with strings."},
+    {"word": "hamburger", "hint": "A popular fast-food item."},
+    {"word": "island", "hint": "A landmass surrounded by water."},
+    {"word": "jungle", "hint": "A dense, tropical forest."},
+    {"word": "kangaroo", "hint": "A marsupial from Australia."},
+    {"word": "lemon", "hint": "A sour citrus fruit."},
+    {"word": "mountain", "hint": "A tall, natural elevation of the Earth's surface."},
+    {"word": "night", "hint": "The time when it's dark outside."},
+    {"word": "ocean", "hint": "A vast body of saltwater."},
+    {"word": "piano", "hint": "A musical instrument with keys."},
+    {"word": "quartz", "hint": "A mineral often used in jewelry."},
+    {"word": "rainbow", "hint": "A colorful arch in the sky after rain."},
+    {"word": "sunflower", "hint": "A tall plant with a large yellow flower."},
+    {"word": "tiger", "hint": "A large, striped feline."},
+    {"word": "umbrella", "hint": "Used to shield from rain or sun."},
+    {"word": "volcano", "hint": "A mountain that can erupt."},
+    {"word": "waterfall", "hint": "A cascade of water down a rock surface."},
+    {"word": "xylophone", "hint": "A musical instrument with wooden bars."},
+    {"word": "yacht", "hint": "A luxury boat for sailing."},
+    {"word": "zebra", "hint": "A black and white striped animal."}
+  ]
+  
