@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { BaseGrid } from './Components/Base/base.grid.tsx';
 import { initializeMultiBoard } from './Handler/board.handler.ts';
-import { words as wordData } from './Data/Word'; // Rename the import to avoid conflict
-
+import { words as wordData } from './Data/Word'; 
+import "@fontsource/kanit"; 
+import "@fontsource/kanit/400.css"; 
+import "@fontsource/kanit/400-italic.css";
 function App() {
-    const [wordList, setWordList] = useState([]); // Renamed the state variable to avoid conflict
+    const [wordList, setWordList] = useState([]);
     const [board, setBoard] = useState(null);
-
     function getRandomSample(array, n) {
         if (n >= array.length) {
             return array.slice();
@@ -48,15 +49,14 @@ function App() {
     useEffect(() => {
         if (wordList && wordList.length) {
             const longest = getLongestWord(wordList);
-            // Add a condition to handle empty words array
             if (longest) {
-                setBoard(initializeMultiBoard(wordList, 10, 10));
+                setBoard(initializeMultiBoard(wordList, 7,7));
             }
         }
     }, [wordList]);
 
     if (!board || !wordList) {
-        return null; // Early return when board or wordList is not ready
+        return null; //
     }
 
     return (

@@ -3,26 +3,32 @@ import { Word } from '../../Types/Word';
 import { MultiBoard } from '../../Types/MultiBoard';
 import { getRandomPos, Position } from '../../Types/Position';
 import { Grid, Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, Stack } from '@mui/material';
-import "@fontsource/roboto"; // Defaults to weight 400
-import "@fontsource/roboto/400.css"; // Specify weight
-import "@fontsource/roboto/400-italic.css"; // Specify weight and style
+
 
 interface BaseGridProps {
     words: Word[],
     board: MultiBoard
 }
 
+const headerStyle = {
+    color:"white",
+    fontFamily:"Kanit"
+}
 
-
+const subStyle = {
+    color:"white",
+    fontFamily:"Kanit",
+    fontWeight:400,
+    fontStyle:"italic"
+}
 export const BaseGrid: React.FC<BaseGridProps> = ({ words, board }: BaseGridProps) => {
     const [currentPosition, setCurrentPosition] = useState<Position>(getRandomPos(board.rows, board.cols));
-    const [wordsFound, setWordsFound] = useState<Word[]>([]);
     const [embeddedWords, setEmbeddedWords] = useState<Word[]>([]);
-
     const [exploredGoodPositions, setExploredGoodPositions] = useState<Position[]>([]);
+
+
     function ifPosInWordGetWord(position: Position, board: MultiBoard): Word | null {
         const wordMapping = board.wordMapping
-        const wordToColorMapping = board.wordToColorMapping;
         for (const [key, value] of wordMapping) {
             if (value) {
                 for (const [_, cell] of value) {
@@ -51,7 +57,6 @@ export const BaseGrid: React.FC<BaseGridProps> = ({ words, board }: BaseGridProp
                 newCol++;
             }
             setCurrentPosition({ row: newRow, col: newCol })
-
         };
         window.addEventListener('keydown', handleKeyPress);
         return () => {
@@ -106,7 +111,7 @@ export const BaseGrid: React.FC<BaseGridProps> = ({ words, board }: BaseGridProp
         const wordToColorMapping = board.wordToColorMapping;
         const wordMapping = board.wordMapping;
         if (pos.row === currentPosition.row && pos.col === currentPosition.col) {
-            return "blue"
+            return "#FFD700"
         }
         for (const [key, value] of wordMapping) {
             if (value) {
@@ -124,53 +129,49 @@ export const BaseGrid: React.FC<BaseGridProps> = ({ words, board }: BaseGridProp
         }
     }
 
-    return <Stack direction="column" flex={1}>
-        <div style={{
-            display: 'flex',
-            justifyContent: 'center', // Center horizontally
-            alignItems: 'center', // Center vertically
-            width: '100vw',
-        }}>
-            <Stack direction="column" mb={2}>
-                <Typography  sx={{ fontFamily: "Roboto" }}  variant='subtitle1' gutterBottom>Somewhere in this grid, I've hidden {embeddedWords.length} words. </Typography>
+    return <Stack direction="column" flex={1} sx={{
+        display: 'flex',
+        backgroundImage:`url(/Assets/blob-bg.svg)`,
+        backgroundSize:'cover',
+        justifyContent: 'center', // Center horizontally
+        alignItems: 'center', // Center vertically
+        width: '100vw',
+        height: '100vh',
+    }}>
+        <div>
+            <Stack direction="column" mb={2} justifyContent={"center"} alignContent={"flex-start"}>
+
+                <Typography variant='subtitle1' sx={subStyle} gutterBottom>Somewhere in this grid, I've hidden {embeddedWords.length} word(s). </Typography>
                 <Stack direction="column">
-                    {embeddedWords.map((word: Word, index:number) => {
+                    {embeddedWords.map((word: Word, index: number) => {
                         const wordToCurrentIndexMapping = board.wordToCurrentIndexMapping.get(word)!;
-                        if(wordToCurrentIndexMapping === word.word.length){
-                            return <Typography  sx={{ fontFamily: "Roboto" }} >You've found <strong>{word.word}</strong> ✅</Typography>
+                        if (wordToCurrentIndexMapping === word.word.length) {
+                            return <Typography sx={subStyle} >You've found <strong>{word.word}</strong> ✅</Typography>
                         }
                         let wordString = "";
-                        for(let i = 0; i<wordToCurrentIndexMapping; i++){
-                            wordString+=word.word.charAt(i)+" ";
+                        for (let i = 0; i < wordToCurrentIndexMapping; i++) {
+                            wordString += word.word.charAt(i) + " ";
                         }
-                        for(let j=wordToCurrentIndexMapping;j<word.word.length;j++){
-                            wordString+='_ '
+                        for (let j = wordToCurrentIndexMapping; j < word.word.length; j++) {
+                            wordString += '_ '
                         }
-
                         return <Stack direction="row">
-            
-                            <Typography  sx={{ fontFamily: "Roboto" }}  >Hint for <strong>{wordString}</strong>: {word.hint}</Typography>
-                        </Stack>})}
-                    
+
+                            <Typography sx={subStyle}  >Hint for <strong>{wordString}</strong>: {word.hint}</Typography>
+                        </Stack>
+                    })}
                 </Stack>
-
-
-
             </Stack>
-
-
         </div>
         <div style={{
             display: 'flex',
             justifyContent: 'center', // Center horizontally
             alignItems: 'center', // Center vertically
             width: '100vw',
-
-
         }}>
             < Grid sx={{ width: '70%' }} container justifyContent="center">
                 <Grid sx={{ width: '100%' }} item>
-                    <TableContainer sx={{ width: '100%' }} component={Paper}>
+                    <TableContainer sx={{ width: '100%', background:"transparent"}} component={Paper}>
                         <Table>
                             <TableBody>
                                 {board.content.map((row, rowIndex) => (
@@ -179,13 +180,15 @@ export const BaseGrid: React.FC<BaseGridProps> = ({ words, board }: BaseGridProp
                                             <TableCell
                                                 key={colIndex}
                                                 style={{
-                                                    border: '1px solid #000',
+                                                    border: '0.5px dashed #FFF',
+                                                    // backgroundColor:'transparent',
                                                     padding: '10px',
                                                     textAlign: 'center',
+                                                    transition: "0.1s",
                                                     backgroundColor: getColor(rowIndex, colIndex),
                                                 }}
                                             >
-                                                <Typography sx={{ fontFamily: "Roboto" }} variant='subtitle1'>{cell}</Typography>
+                                                <Typography sx={{ fontFamily: "Kanit", color:"white" }} variant='subtitle1'>{cell}</Typography>
                                             </TableCell>
                                         ))}
                                     </TableRow>

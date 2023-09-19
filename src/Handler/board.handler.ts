@@ -28,11 +28,11 @@ type WordColorMapping = Map<Word, string>;
 
 function generateWordColorMapping(words: Word[]): WordColorMapping {
     const colors: string[] = [
-        "#FF5733", // Red
-        "#33FF57", // Green
-        "#3366FF", // Blue
-        "#FF33FF", // Purple
-        "#FFFF33", // Yellow
+        "#FFA07A", // Light Salmon (Red)
+        "#98FB98", // Pale Green (Green)
+        "#ADD8E6", // Light Blue (Blue)
+        "#FFB6C1", // Light Pink (Purple)
+        "#FFFFE0", // Light Yellow (Yellow)
     ];
     const wordColorMapping: WordColorMapping = new Map();
     for (let i = 0; i < words.length; i++) {
